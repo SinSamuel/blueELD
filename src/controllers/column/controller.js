@@ -5,7 +5,10 @@ class Stripe {
   // to get all all expenses
   getColumns = async (req, res) => {
     try {
-      const data = await Column.findOne({ user: "123" });
+      const { userId } = req.params;
+      console.log(req.params);
+      const data = await Column.findOne({ user: userId });
+      console.log(data);
       if (data) res.status(200).json(data.columns);
       else res.status(200).json([]);
     } catch (error) {
@@ -17,9 +20,10 @@ class Stripe {
   // add column
   addColumn = async (req, res) => {
     try {
+      const { userId } = req.params;
       console.log(req.body);
       const data = await Column.findOneAndUpdate(
-        { user: "123" },
+        { user: userId },
         { $push: { columns: req.body } },
         { new: true }
       );
@@ -37,11 +41,11 @@ class Stripe {
   // delete column
   deleteColumn = async (req, res) => {
     try {
-      const { index } = req.params;
-      let column = await Column.findOne({ user: "123" });
+      const { index, userId } = req.params;
+      let column = await Column.findOne({ user: userId });
       column = column?.columns?.find((el) => el.index == index);
       let data = await Column.findOneAndUpdate(
-        { user: "123" },
+        { user: userId },
         { $pull: { columns: { index: parseInt(index) } } },
         { new: true }
       );
@@ -54,12 +58,12 @@ class Stripe {
       });
 
       data = await Column.findOneAndUpdate(
-        { user: "123" },
+        { user: userId },
         { columns: arr },
         { new: true }
       );
 
-      let expenses = await Expense.find({ user: "123" });
+      let expenses = await Expense.find({ user: userId });
       await Promise.all(
         expenses.map(async (elem) => {
           let object = elem.data;
@@ -84,10 +88,10 @@ class Stripe {
 
   moveColumn = async (req, res) => {
     try {
-      let { index, move } = req.params;
+      let { index, move, userId } = req.params;
       index = parseInt(index);
       console.log(req.params);
-      let data = await Column.findOne({ user: "123" });
+      let data = await Column.findOne({ user: userId });
       let arr = data?.columns;
 
       const targetIndex = arr.findIndex((obj) => obj.index == index);
@@ -102,11 +106,11 @@ class Stripe {
           arr[targetIndex - 1].index = index;
           arr.sort((a, b) => a.index - b.index);
           data = await Column.findOneAndUpdate(
-            { user: "123" },
+            { user: userId },
             { columns: arr },
             { new: true }
           );
-          // let expenses = await Expense.find({ user: "123" });
+          // let expenses = await Expense.find({ user: userId });
           // console.log(expenses.data, "before");
           // await Promise.all(
           //   expenses?.map(async (elem) => {
@@ -131,7 +135,7 @@ class Stripe {
         console.log(arr, "arr");
         arr.sort((a, b) => a.index - b.index);
         data = await Column.findOneAndUpdate(
-          { user: "123" },
+          { user: userId },
           { columns: arr },
           { new: true }
         );
@@ -159,9 +163,9 @@ class Stripe {
 
   hideColumn = async (req, res) => {
     try {
-      let { index } = req.params;
+      let { index, userId } = req.params;
       console.log(req.params);
-      let data = await Column.findOne({ user: "123" });
+      let data = await Column.findOne({ user: userId });
       let arr = data?.columns;
       arr = await Promise.all(
         arr?.map((elem) =>
@@ -172,7 +176,7 @@ class Stripe {
       );
       console.log(arr);
       data = await Column.findOneAndUpdate(
-        { user: "123" },
+        { user: userId },
         { columns: arr },
         { new: true }
       );
@@ -185,9 +189,9 @@ class Stripe {
 
   shrinkColumn = async (req, res) => {
     try {
-      let { index } = req.params;
+      let { index, userId } = req.params;
       console.log(req.params);
-      let data = await Column.findOne({ user: "123" });
+      let data = await Column.findOne({ user: userId });
       let arr = data?.columns;
       arr = await Promise.all(
         arr?.map((elem) =>
@@ -198,7 +202,7 @@ class Stripe {
       );
       console.log(arr);
       data = await Column.findOneAndUpdate(
-        { user: "123" },
+        { user: userId },
         { columns: arr },
         { new: true }
       );
@@ -211,8 +215,8 @@ class Stripe {
 
   duplicateColumn = async (req, res) => {
     try {
-      let { index } = req.params;
-      let data = await Column.findOne({ user: "123" });
+      let { index, userId } = req.params;
+      let data = await Column.findOne({ user: userId });
       let arr = data?.columns;
       let obj = arr?.find((elem) => elem.index == index);
       arr = [
@@ -226,7 +230,7 @@ class Stripe {
         },
       ];
       data = await Column.findOneAndUpdate(
-        { user: "123" },
+        { user: userId },
         { columns: arr },
         { new: true }
       );
@@ -242,8 +246,8 @@ class Stripe {
   editColumn = async (req, res) => {
     try {
       // console.log(req.body);
-      let { index } = req.params;
-      let data = await Column.findOne({ user: "123" });
+      let { index, userId } = req.params;
+      let data = await Column.findOne({ user: userId });
       let arr = data?.columns;
       let dup = arr.filter(
         (el) => el.title == req.body.title && el.index !== parseInt(index)
@@ -264,11 +268,11 @@ class Stripe {
         );
         console.log(object, "object");
         data = await Column.findOneAndUpdate(
-          { user: "123" },
+          { user: userId },
           { columns: arr },
           { new: true }
         );
-        let expenses = await Expense.find({ user: "123" });
+        let expenses = await Expense.find({ user: userId });
         await Promise.all(
           expenses.map(async (elem, key) => {
             let OBJ = elem.data;
