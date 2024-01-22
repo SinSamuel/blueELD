@@ -4,7 +4,13 @@ class EmployeeClass {
   // to get all employees
   getEmployees = async (req, res) => {
     try {
-      const data = await Employee.find();
+      const data = await Employee.find().populate([
+        "driverLicense",
+        "medicalExam",
+        "employmentContract",
+        "irs",
+        "title",
+      ]);
       res.status(200).json(data);
     } catch (error) {
       console.log(error);
@@ -16,7 +22,13 @@ class EmployeeClass {
   getEmployeeById = async (req, res) => {
     try {
       console.log(req.parms);
-      const data = await Employee.findById(req.params.id);
+      const data = await Employee.findById(req.params.id).populate([
+        "driverLicense",
+        "medicalExam",
+        "employmentContract",
+        "irs",
+        "title",
+      ]);
       res.status(200).json(data);
     } catch (error) {
       console.log(error);

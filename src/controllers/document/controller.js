@@ -7,7 +7,6 @@ class DocumentClass {
       console.log(req.params.id);
       const data = await Document.find({
         refId: req.params.id,
-        archive: false,
       });
       console.log(data);
       res.status(200).json(data);
@@ -33,7 +32,7 @@ class DocumentClass {
     try {
       console.log(req.body);
       const data = await Document.create({ ...req.body, refId: req.params.id });
-      res.status(201).json({ message: "Document Added!" });
+      res.status(201).json({ message: "Document Added!", data: data });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: error.message });
@@ -72,7 +71,7 @@ class DocumentClass {
   // get archive docs
   archiveDocuments = async (req, res) => {
     try {
-      const data = await Document.find({ archive: true });
+      const data = await Document.find();
       res.status(200).json(data);
     } catch (error) {
       console.log(error);
