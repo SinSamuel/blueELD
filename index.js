@@ -165,7 +165,58 @@ let data2 = [
   },
 ];
 
-// Column.create({ user: "trip", columns: data2 });
+let data3 = [
+  {
+    title: "Unit #",
+    dataIndex: "unit",
+    dataType: "text",
+    key: "unit",
+    editable: false,
+    index: 0,
+  },
+  {
+    title: "Date",
+    dataIndex: "date",
+    dataType: "date",
+    key: "date",
+    index: 1,
+    editable: false,
+  },
+  {
+    title: "Odometer",
+    dataIndex: "odometer",
+    dataType: "text",
+    key: "odometer",
+    index: 2,
+    editable: false,
+  },
+  {
+    title: "Part",
+    dataIndex: "part",
+    dataType: "text",
+    key: "part",
+    index: 3,
+    editable: false,
+  },
+  {
+    title: "Cost",
+    dataIndex: "cost",
+    dataType: "text",
+    key: "cost",
+    index: 4,
+    editable: false,
+  },
+  {
+    title: "Notes",
+    dataIndex: "notes",
+    dataType: "text",
+    key: "notes",
+    index: 5,
+    editable: false,
+  },
+];
+
+// Column.create({ user: "maintenance", columns: data3 });
 
 const PORT = process.env.PORT || 4004;
 app.listen(PORT, () => {
