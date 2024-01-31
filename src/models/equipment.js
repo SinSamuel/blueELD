@@ -22,6 +22,7 @@ const equipmentSchema = new mongoose.Schema(
     ratio: { type: String },
     fuel: { type: String },
     inputArr: [{ type: Object }],
+    trailerProfile: { type: String },
     documents: [
       {
         type: { type: String },
