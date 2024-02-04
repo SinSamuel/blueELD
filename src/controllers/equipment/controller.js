@@ -5,7 +5,7 @@ class EquipmentClass {
   //get all equipments
   getEquipments = async (req, res) => {
     try {
-      const data = await Equipment.find();
+      const data = await Equipment.find().populate("employee");
       res.status(200).json(data);
     } catch (error) {
       console.log(error);

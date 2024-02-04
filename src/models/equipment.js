@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const equipmentSchema = new mongoose.Schema(
   {
+    employee: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employee",
+    },
     vin: { type: String },
     type: { type: String },
     make: { type: String },
