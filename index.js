@@ -6,6 +6,7 @@ const app = express();
 require("./src/db/connection");
 const routes = require("./src/routes");
 const Column = require("./src/models/column");
+const fs = require("fs");
 
 app.use(cors());
 
@@ -217,6 +218,35 @@ let data3 = [
 ];
 
 // Column.create({ user: "maintenance", columns: data3 });
+
+// const imageFolderPath = "D:/blue"; // Your folder path
+
+// app.get("/api/images", (req, res) => {
+//   fs.readdir(imageFolderPath, (err, files) => {
+//     if (err) {
+//       console.error("Error reading directory:", err);
+//       res.status(500).json({ error: "Error reading directory" });
+//       return;
+//     }
+
+//     const imageFiles = files.filter((file) => {
+//       return (
+//         file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png")
+//       );
+//     });
+
+//     console.log(imageFiles, "imagesFiles");
+
+//     const imageUrls = imageFiles.map((file) => {
+//       return `/images/${file}`;
+//     });
+//     console.log(imageUrls, "imagesFiles");
+
+//     res.json(imageUrls);
+//   });
+// });
+
+// app.use("/images", express.static(imageFolderPath));
 
 const PORT = process.env.PORT || 4004;
 app.listen(PORT, () => {

@@ -5,7 +5,9 @@ class EquipmentClass {
   //get all equipments
   getEquipments = async (req, res) => {
     try {
-      const data = await Equipment.find().populate("employee");
+      const data = await Equipment.find({ company: req.params.id }).populate(
+        "company"
+      );
       res.status(200).json(data);
     } catch (error) {
       console.log(error);
@@ -16,7 +18,7 @@ class EquipmentClass {
   // get equipment by id
   getEquipmentById = async (req, res) => {
     try {
-      const data = await Equipment.findById(req.params.id);
+      const data = await Equipment.findById(req.params.id).populate("company");
       res.status(200).json(data);
     } catch (error) {
       console.log(error);
@@ -28,7 +30,8 @@ class EquipmentClass {
   addEquipment = async (req, res) => {
     try {
       console.log(req.body);
-      const data = await Equipment.create(req.body);
+      let data = await Equipment.create(req.body);
+      data = await Equipment.findById(data._id).populate("company");
       res.status(201).json({ message: "Equipment Added!", data: data });
     } catch (error) {
       console.log(error);
@@ -56,7 +59,7 @@ class EquipmentClass {
       const { id } = req.params;
       const data = await Equipment.findByIdAndUpdate(id, req.body, {
         new: true,
-      });
+      }).populate("company");
       res.status(200).json({ data, message: "Equipment Edited!" });
     } catch (error) {
       console.log(error);

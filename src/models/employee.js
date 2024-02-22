@@ -1,7 +1,16 @@
 const mongoose = require("mongoose");
-
+const randomstring = require("randomstring");
+const Token = require("./token");
 const employeeSchema = new mongoose.Schema(
   {
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+    },
+    role: { type: String, default: "employee" },
+    acc: {
+      type: String,
+    },
     date: {
       type: String,
     },
@@ -9,6 +18,9 @@ const employeeSchema = new mongoose.Schema(
       type: String,
     },
     lastName: {
+      type: String,
+    },
+    password: {
       type: String,
     },
     ssn: {
@@ -45,31 +57,40 @@ const employeeSchema = new mongoose.Schema(
       type: String,
     },
     driverLicense: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Document",
+      type: Object,
     },
     profilePicture: {
       type: String,
     },
     medicalExam: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Document",
+      type: Object,
     },
     employmentContract: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Document",
+      type: Object,
     },
     irs: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Document",
+      type: Object,
     },
     title: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Document",
+      type: Object,
     },
+    permissions: [{ type: String }],
+    count: { type: Number },
   },
   { timestamps: true }
 );
+
+employeeSchema.methods.generateVerificationToken = function () {
+  let payload = {
+    refId: this._id,
+    token: randomstring.generate({
+      length: 6,
+      charset: "numeric",
+    }),
+  };
+
+  return new Token(payload);
+};
 
 const Employee = mongoose.model("Employee", employeeSchema);
 

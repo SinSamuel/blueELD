@@ -2,8 +2,17 @@ const mongoose = require("mongoose");
 
 const documentSchema = new mongoose.Schema(
   {
-    refId: {
-      type: String,
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+    },
+    companyRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+    },
+    employeeRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employee",
     },
     title: {
       type: String,
@@ -16,12 +25,14 @@ const documentSchema = new mongoose.Schema(
     },
     inputArr: [{ type: Object }],
     archive: { type: Boolean, default: false },
+    size: { type: Number },
     documents: [
       {
         type: { type: String },
         url: { type: String },
         name: { type: String },
         id: { type: String },
+        kbSize: { type: Number },
       },
     ],
   },
