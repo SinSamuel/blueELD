@@ -56,6 +56,7 @@ exports.employeeInvitation = async (data, emailTo) => {
         name: data?.name,
         id: data?.id,
         role: data?.role,
+        BASE_URL: process.env.BASE_URL,
       },
     };
     await sgMail.send(msg);
