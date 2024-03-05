@@ -7,6 +7,7 @@ require("./src/db/connection");
 const routes = require("./src/routes");
 const Column = require("./src/models/column");
 const fs = require("fs");
+const path = require("path");
 
 app.use(cors());
 
@@ -247,6 +248,22 @@ let data3 = [
 // });
 
 // app.use("/images", express.static(imageFolderPath));
+
+// app.get("/getImages", (req, res) => {
+//   const directoryPath = "D:/images";
+//   fs.readdir(directoryPath, (err, files) => {
+//     if (err) {
+//       console.error("Error reading directory:", err);
+//       res.status(500).json({ error: "Failed to read directory" });
+//       return;
+//     }
+//     const imageFiles = files.filter((file) =>
+//       /\.(jpg|jpeg|png|pdf)$/i.test(file)
+//     );
+//     const imagePaths = imageFiles.map((file) => path.join(directoryPath, file));
+//     res.json({ data: imagePaths });
+//   });
+// });
 
 const PORT = process.env.PORT || 4004;
 app.listen(PORT, () => {
