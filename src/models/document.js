@@ -14,6 +14,10 @@ const documentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Employee",
     },
+    equipmentRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Equipment",
+    },
     title: {
       type: String,
     },

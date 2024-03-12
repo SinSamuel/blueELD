@@ -12,11 +12,15 @@ class DocumentClass {
       if (role == "admin") {
         data = await Document.find({
           companyRef: id,
-        }).populate(["companyRef", "employeeRef"]);
-      } else {
+        }).populate(["companyRef", "company"]);
+      } else if (role == "employee") {
         data = await Document.find({
           employeeRef: id,
-        }).populate(["companyRef", "employeeRef"]);
+        }).populate(["employeeRef", "company"]);
+      } else {
+        data = await Document.find({
+          equipmentRef: id,
+        }).populate(["equipmentRef", "company"]);
       }
       res.status(200).json(data);
     } catch (error) {
@@ -58,10 +62,16 @@ class DocumentClass {
           companyRef: req.params.id,
           size: totalSize.toFixed(2),
         });
-      } else {
+      } else if (result?.role == "employee") {
         data = await Document.create({
           ...req.body,
           employeeRef: req.params.id,
+          size: totalSize.toFixed(2),
+        });
+      } else {
+        data = await Document.create({
+          ...req.body,
+          equipmentRef: req.params.id,
           size: totalSize.toFixed(2),
         });
       }
