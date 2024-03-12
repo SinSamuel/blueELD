@@ -218,7 +218,7 @@ let data3 = [
   },
 ];
 
-// Column.create({ user: "maintenance", columns: data3 });
+// Column.create({ user: "123", columns: data });
 
 // const imageFolderPath = "D:/blue"; // Your folder path
 

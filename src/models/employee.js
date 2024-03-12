@@ -8,7 +8,7 @@ const employeeSchema = new mongoose.Schema(
       ref: "Company",
     },
     role: { type: String, default: "employee" },
-    acc: {
+    accountNumber: {
       type: String,
     },
     date: {

@@ -52,7 +52,7 @@ class DocumentClass {
         result = await Employee.findById(req.params.id);
       }
 
-      if (result.role == "admin") {
+      if (result?.role == "admin") {
         data = await Document.create({
           ...req.body,
           companyRef: req.params.id,
@@ -141,7 +141,7 @@ class DocumentClass {
       ]);
       let employees = await Employee.find({ company: id }).select([
         "company",
-        "acc",
+        "accountNumber",
         "firstName",
         "lastName",
         "role",

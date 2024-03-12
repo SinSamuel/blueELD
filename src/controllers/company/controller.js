@@ -33,7 +33,7 @@ class CompanyClass {
       const data = await Company.create({
         ...req.body,
         password: passwordHash,
-        accountNumber: `${length}BLED`,
+        accountNumber: `${length}${req.body.name}`,
         permissions: [
           "company",
           "equipment",
@@ -64,7 +64,7 @@ class CompanyClass {
     try {
       const { email, password } = req.body;
       const company = await Company.findOne({ email });
-      const employee = await Employee.findOne({ email });
+      let employee = await Employee.findOne({ email });
       console.log(company, employee, "answer");
       if (company) {
         const result = compareString(password, company?.password);
@@ -79,6 +79,7 @@ class CompanyClass {
         const result = compareString(password, employee?.password);
         console.log(result);
         if (result) {
+          employee = await Employee.findOne({ email }).populate("company");
           return res
             .status(200)
             .json({ message: "Login success", data: employee });

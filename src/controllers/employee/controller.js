@@ -59,7 +59,7 @@ class EmployeeClass {
         console.log(number);
         const data = await Employee.create({
           ...req.body,
-          acc: number,
+          accountNumber: number,
           permissions: permissions,
           count: company.count + 1,
           company: company._id,
@@ -104,7 +104,7 @@ class EmployeeClass {
         let number = `${company.accountNumber}${month}${year}${employment}${employee.count}`;
         data = await Employee.findByIdAndUpdate(
           id,
-          { ...req.body, permissions: permissions, acc: number },
+          { ...req.body, permissions: permissions, accountNumber: number },
           {
             new: true,
           }
