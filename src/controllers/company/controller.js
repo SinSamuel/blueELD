@@ -77,7 +77,7 @@ class CompanyClass {
         }
       } else if (employee) {
         const result = compareString(password, employee?.password);
-        console.log(result);
+        // console.log(result);
         if (result) {
           employee = await Employee.findOne({ email }).populate("company");
           return res
@@ -204,6 +204,7 @@ class CompanyClass {
             .status(200)
             .json({ message: "Login Success", data: c_data });
         else if (e_data) {
+          e_data = await Employee.findById(result?.refId).populate("company");
           return res
             .status(200)
             .json({ message: "Login Success", data: e_data });
