@@ -70,3 +70,20 @@ exports.checkEmployment = (emp) => {
   }
   return { employment, permissions };
 };
+
+exports.getRandomChar = (name) => {
+  // Get the first and last characters of the name
+  const firstChar = name.charAt(0).toUpperCase();
+  const lastChar = name.charAt(name.length - 1).toUpperCase();
+
+  // Generate two random uppercase characters from the name
+  const charsInName = [...new Set(name.toUpperCase().split(""))]; // Unique uppercase characters in the name
+  const randomChar1 =
+    charsInName[Math.floor(Math.random() * charsInName.length)];
+  const randomChar2 =
+    charsInName[Math.floor(Math.random() * charsInName.length)];
+
+  // Combine the characters to form the final string
+  const randomString = `${firstChar}${randomChar1}${randomChar2}${lastChar}`;
+  return randomString;
+};

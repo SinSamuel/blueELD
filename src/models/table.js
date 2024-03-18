@@ -8,6 +8,7 @@ const tableSchema = new mongoose.Schema(
     table: {
       type: String,
     },
+    index: { type: Number },
     data: {
       type: Object,
     },

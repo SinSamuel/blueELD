@@ -9,6 +9,7 @@ const tripSchema = new mongoose.Schema(
       type: String,
       default: "trip",
     },
+    index: { type: Number },
     data: {
       type: Object,
     },

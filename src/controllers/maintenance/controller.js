@@ -23,10 +23,15 @@ class MaintenanceClass {
   // add Table
   addMaintenance = async (req, res) => {
     try {
-      const data = await Table.create({
+      let data = await Table.find({
+        refId: req.params.id,
+        table: "maintenance",
+      });
+      data = await Table.create({
         data: req.body,
         refId: req.params.id,
         table: "maintenance",
+        index: data.length,
       });
       res.status(201).json({
         message: "maintenance Added!",

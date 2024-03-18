@@ -5,7 +5,11 @@ const {
   sendEmailVerification,
   resetPasswordVerification,
 } = require("../../utils/email");
-const { hashString, compareString } = require("../../utils/helper");
+const {
+  hashString,
+  compareString,
+  getRandomChar,
+} = require("../../utils/helper");
 
 class CompanyClass {
   //get company
@@ -22,18 +26,24 @@ class CompanyClass {
   // add Company
   addCompany = async (req, res) => {
     try {
-      const company = await Company.findOne({ email: req.body.email });
+      let company = await Company.findOne({ email: req.body.email });
 
       if (company) {
         return res.status(400).json({ message: "email already exist" });
       }
+
+      company = await Company.find({ name: req.body.name });
+      let randomName = getRandomChar(req.body.name);
+      let accNum = `${company.length + 1}${randomName}`;
+
+      console.log(req.body);
       let allCompanies = await Company.find();
       let length = allCompanies.length + 1;
       const passwordHash = hashString(req.body.password);
       const data = await Company.create({
         ...req.body,
         password: passwordHash,
-        accountNumber: `${length}${req.body.name}`,
+        accountNumber: accNum,
         permissions: [
           "company",
           "equipment",

@@ -23,9 +23,11 @@ class TripClass {
   // add trip
   addTrip = async (req, res) => {
     try {
-      const data = await Trip.create({
+      let data = await Trip.find({ employee: req.params.id });
+      data = await Trip.create({
         data: req.body,
         employee: req.params.id,
+        index: data.length + 1,
       });
       res.status(201).json({ ...data.data, _id: data._id });
     } catch (error) {
