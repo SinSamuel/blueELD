@@ -132,7 +132,7 @@ class EmployeeClass {
         {
           new: true,
         }
-      );
+      ).populate("company");
       res.status(200).json(data);
     } catch (error) {
       console.log(error);
