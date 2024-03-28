@@ -9,6 +9,7 @@ const tableSchema = new mongoose.Schema(
       type: String,
     },
     index: { type: Number },
+    disable: { type: Boolean, default: false },
     data: {
       type: Object,
     },

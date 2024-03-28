@@ -7,6 +7,7 @@ const companyRoutes = require("./companyRoutes");
 const tripRoutes = require("./tripRoutes");
 const equipmentRoutes = require("./equipmentRoutes");
 const maintenanceRoutes = require("./maintenanceRoutes");
+const loadRoutes = require("./loadRoutes");
 
 let router = express.Router();
 
@@ -18,5 +19,6 @@ router.use("/company", companyRoutes);
 router.use("/trip", tripRoutes);
 router.use("/equipment", equipmentRoutes);
 router.use("/maintenance", maintenanceRoutes);
+router.use("/load", loadRoutes);
 
 module.exports = router;

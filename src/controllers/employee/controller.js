@@ -21,6 +21,26 @@ class EmployeeClass {
     }
   };
 
+  // to get all employees by role
+  getEmployeesByEmployment = async (req, res) => {
+    try {
+      const data = await Employee.find({
+        company: req.params.id,
+        employment: req.params.employment,
+      }).populate([
+        "driverLicense",
+        "medicalExam",
+        "employmentContract",
+        "irs",
+        "title",
+      ]);
+      res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: error.message });
+    }
+  };
+
   // get employee by id
   getEmployeeById = async (req, res) => {
     try {
