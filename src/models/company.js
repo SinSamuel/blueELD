@@ -23,7 +23,7 @@ const companySchema = new mongoose.Schema(
       type: String,
     },
     address: {
-      type: String,
+      type: Object,
     },
     timeZone: {
       type: String,

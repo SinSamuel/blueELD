@@ -33,7 +33,7 @@ const employeeSchema = new mongoose.Schema(
       type: String,
     },
     address: {
-      type: String,
+      type: Object,
     },
     city: {
       type: String,
