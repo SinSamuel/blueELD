@@ -229,6 +229,24 @@ class DocumentClass {
       res.status(500).json({ message: error.message });
     }
   };
+
+  // edit docs
+  editDocuuments = async (req, res) => {
+    try {
+      let documents = req.body;
+      await Promise.all(
+        documents?.map(async (doc) => {
+          const data = await Document.findByIdAndUpdate(doc._id, doc, {
+            new: true,
+          });
+        })
+      );
+      res.status(200).json(documents);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = new DocumentClass();

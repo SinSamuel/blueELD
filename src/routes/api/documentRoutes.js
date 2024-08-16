@@ -8,5 +8,6 @@ Router.post("/add-document/:id", controller.addDocument);
 Router.patch("/edit-document/:id", controller.editDocuemnt);
 Router.get("/get-arhvive-documents/:id", controller.archiveDocuments);
 Router.patch("/move-to-archive/:id", controller.moveToArchive);
+Router.patch("/edit-documents", controller.editDocuuments);
 
 module.exports = Router;
