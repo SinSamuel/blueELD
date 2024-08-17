@@ -37,7 +37,7 @@ const documentSchema = new mongoose.Schema(
         name: { type: String },
         id: { type: String },
         kbSize: { type: Number },
-        downloads: [{ type: String }],
+        downloads: [{ type: String, default: [] }],
       },
     ],
   },
